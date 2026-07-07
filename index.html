@@ -4,17 +4,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="초해크롭은 드론방제 필지관리, 팀 작업 배정, 방제 알림, 증빙 사진 관리를 위한 현장 업무 앱입니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="초해크롭 | CHOHAE CROP" />
+  <meta property="og:description" content="드론방제 필지관리 앱. 필지 지도, 팀 배정, 방제 알림, 증빙 사진을 한 곳에서 관리합니다." />
+  <meta property="og:url" content="https://chcrop.kr/" />
+  <meta property="og:image" content="https://chcrop.kr/logo.png" />
+  <meta name="theme-color" content="#0b55ff" />
   <title>초해크롭 | CHOHAE CROP</title>
   <style>
     :root {
       --blue: #0b55ff;
-      --blue-2: #0642d9;
-      --blue-3: #eaf1ff;
-      --green: #19a463;
+      --blue-dark: #063ec8;
+      --blue-soft: #eaf1ff;
+      --green: #18a663;
+      --orange: #f97316;
       --ink: #111827;
       --muted: #667085;
       --line: #e5e7eb;
-      --soft: #f6f8fb;
+      --soft: #f7f9fc;
       --white: #ffffff;
       --shadow: 0 24px 70px rgba(11, 31, 58, .18);
     }
@@ -26,16 +33,18 @@
       color: var(--ink);
       background: #fff;
       line-height: 1.55;
+      word-break: keep-all;
     }
     a { color: inherit; text-decoration: none; }
     .wrap { max-width: 1360px; margin: 0 auto; padding: 0 42px; }
     header {
       height: 68px;
-      background: #fff;
+      background: rgba(255,255,255,.96);
       border-bottom: 1px solid #eef1f5;
       position: sticky;
       top: 0;
       z-index: 40;
+      backdrop-filter: blur(12px);
     }
     .nav {
       height: 68px;
@@ -46,17 +55,17 @@
     }
     .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 950; color: #0b2b66; font-size: 22px; letter-spacing: 0; }
     .brand img { width: 36px; height: 36px; border-radius: 10px; display: block; box-shadow: 0 8px 18px rgba(11,85,255,.18); }
-    .links { display: flex; align-items: center; gap: 48px; font-size: 15px; font-weight: 850; color: #202938; white-space: nowrap; }
-    .admin-link { justify-self: end; display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 18px; border-radius: 10px; background: var(--green); color: #fff; font-size: 14px; font-weight: 950; box-shadow: 0 10px 24px rgba(25,164,99,.2); }
+    .links { display: flex; align-items: center; gap: 44px; font-size: 15px; font-weight: 850; color: #202938; white-space: nowrap; }
+    .nav-cta { justify-self: end; display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 18px; border-radius: 10px; background: var(--green); color: #fff; font-size: 14px; font-weight: 950; box-shadow: 0 10px 24px rgba(25,164,99,.2); }
 
-    .hero { min-height: 770px; background: var(--blue); color: #fff; overflow: hidden; }
-    .hero-inner { position: relative; min-height: 770px; display: grid; grid-template-columns: 0.94fr 1.06fr; align-items: center; gap: 36px; }
+    .hero { min-height: 792px; background: var(--blue); color: #fff; overflow: hidden; }
+    .hero-inner { position: relative; min-height: 792px; display: grid; grid-template-columns: 0.94fr 1.06fr; align-items: center; gap: 36px; }
     .hero-copy { position: relative; z-index: 3; padding: 70px 0 96px; }
-    .app-mark { display: inline-flex; align-items: center; gap: 16px; margin-bottom: 34px; }
+    .app-mark { display: inline-flex; align-items: center; gap: 16px; margin-bottom: 32px; }
     .app-mark img { width: 58px; height: 58px; border-radius: 15px; background: #fff; box-shadow: 0 16px 32px rgba(0,0,0,.18); }
     .app-mark strong { font-size: 40px; line-height: 1; letter-spacing: 0; }
     h1 { margin: 0; font-size: clamp(48px, 5.8vw, 84px); line-height: 1.13; letter-spacing: 0; font-weight: 950; }
-    .hero-desc { margin: 26px 0 0; max-width: 640px; font-size: 20px; color: rgba(255,255,255,.9); font-weight: 650; word-break: keep-all; }
+    .hero-desc { margin: 26px 0 0; max-width: 660px; font-size: 20px; color: rgba(255,255,255,.91); font-weight: 650; }
     .tags { display: flex; gap: 16px; flex-wrap: wrap; margin: 28px 0 34px; font-size: 18px; font-weight: 950; color: #fff; }
     .store-row { display: flex; gap: 14px; flex-wrap: wrap; }
     .store-badge { min-width: 194px; height: 62px; display: inline-flex; align-items: center; justify-content: center; gap: 11px; background: #fff; color: #111827; border-radius: 14px; font-weight: 950; box-shadow: 0 18px 34px rgba(0,0,0,.15); }
@@ -64,6 +73,10 @@
     .store-badge span { display: block; font-size: 20px; line-height: 1.05; }
     .store-icon { font-size: 27px; line-height: 1; }
     .hero-note { margin-top: 14px; font-size: 13px; color: rgba(255,255,255,.78); }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 620px; margin-top: 34px; }
+    .stat { border: 1px solid rgba(255,255,255,.26); background: rgba(255,255,255,.12); border-radius: 14px; padding: 14px 16px; }
+    .stat strong { display: block; font-size: 22px; line-height: 1; margin-bottom: 6px; }
+    .stat span { color: rgba(255,255,255,.82); font-size: 13px; font-weight: 700; }
 
     .phones { position: relative; min-height: 720px; z-index: 2; }
     .phone { position: absolute; border: 8px solid #141414; background: #fff; box-shadow: 0 28px 76px rgba(0,0,0,.34); overflow: hidden; }
@@ -88,7 +101,7 @@
     .row { display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; gap: 8px; font-size: 12px; color: #344054; font-weight: 850; }
     .bar { height: 9px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
     .fill { height: 100%; border-radius: inherit; background: var(--blue); }
-    .fill.orange { background: #f97316; }
+    .fill.orange { background: var(--orange); }
     .fill.green { background: var(--green); }
     .field-card { margin-top: 12px; border: 1px solid #e5e7eb; border-radius: 13px; padding: 11px; background: #fff; box-shadow: 0 8px 20px rgba(16,24,40,.08); }
     .field-card strong { display: block; font-size: 14px; color: #111827; margin-bottom: 4px; }
@@ -99,25 +112,42 @@
     .folder { border: 1px solid #e5e7eb; background: #fff; border-radius: 10px; padding: 10px; margin-bottom: 8px; font-size: 12px; color: #344054; font-weight: 950; }
     .folder small { display: block; color: #667085; font-weight: 750; margin-top: 3px; }
 
-    section { padding: 76px 0; }
+    section { padding: 78px 0; }
     .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
     h2 { margin: 0; color: #0b1f3a; font-size: 36px; line-height: 1.2; letter-spacing: 0; }
-    .section-head p { margin: 0; max-width: 580px; color: var(--muted); font-size: 16px; word-break: keep-all; }
-    .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .feature { border: 1px solid var(--line); background: #fff; border-radius: 18px; padding: 24px; min-height: 176px; box-shadow: 0 16px 36px rgba(16,24,40,.06); }
-    .feature-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; color: var(--blue); background: var(--blue-3); font-weight: 950; margin-bottom: 18px; }
+    .section-head p { margin: 0; max-width: 600px; color: var(--muted); font-size: 16px; }
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .feature { border: 1px solid var(--line); background: #fff; border-radius: 18px; padding: 24px; min-height: 186px; box-shadow: 0 16px 36px rgba(16,24,40,.06); }
+    .feature-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; color: var(--blue); background: var(--blue-soft); font-weight: 950; margin-bottom: 18px; }
     .feature h3 { margin: 0 0 8px; font-size: 18px; }
-    .feature p { margin: 0; color: var(--muted); font-size: 14px; word-break: keep-all; }
-    .workflow { background: #f8fafc; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: step; }
+    .feature p { margin: 0; color: var(--muted); font-size: 14px; }
+    .roles { background: var(--soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .role-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .role-card { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 26px; box-shadow: 0 10px 28px rgba(16,24,40,.04); }
+    .role-card .label { display: inline-flex; height: 30px; align-items: center; padding: 0 10px; border-radius: 999px; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 950; margin-bottom: 18px; }
+    .role-card h3 { margin: 0 0 10px; font-size: 22px; }
+    .role-card ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+    .role-card li + li { margin-top: 7px; }
+    .workflow { background: #fff; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: step; }
     .step { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 24px; box-shadow: 0 10px 28px rgba(16,24,40,.04); }
     .step:before { counter-increment: step; content: counter(step); width: 34px; height: 34px; display: grid; place-items: center; border-radius: 999px; background: var(--blue); color: #fff; font-weight: 950; margin-bottom: 16px; }
     .step h3 { margin: 0 0 8px; font-size: 18px; }
-    .step p { margin: 0; color: var(--muted); font-size: 14px; word-break: keep-all; }
-    .contact { background: #071f53; color: #fff; border-radius: 24px; padding: 34px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; }
-    .contact h2 { color: #fff; font-size: 30px; margin-bottom: 8px; }
-    .contact p { margin: 0; color: #c7d7fe; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; }
+    .security { background: #071f53; color: #fff; }
+    .security h2 { color: #fff; }
+    .security .section-head p { color: #c7d7fe; }
+    .security-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .security-card { border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.08); border-radius: 18px; padding: 20px; }
+    .security-card strong { display: block; font-size: 17px; margin-bottom: 8px; }
+    .security-card span { color: #cbd5e1; font-size: 14px; }
+    .contact-section { padding-bottom: 42px; }
+    .contact { background: #0b55ff; color: #fff; border-radius: 28px; padding: 38px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; box-shadow: var(--shadow); }
+    .contact h2 { color: #fff; font-size: 31px; margin-bottom: 8px; }
+    .contact p { margin: 0; color: #dbe7ff; }
     .contact-info { display: grid; gap: 8px; text-align: right; font-weight: 950; font-size: 17px; white-space: nowrap; }
+    .legal-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .legal-links a { display: inline-flex; align-items: center; justify-content: center; height: 38px; padding: 0 13px; border: 1px solid rgba(255,255,255,.28); border-radius: 10px; font-size: 13px; font-weight: 900; color: #fff; }
     footer { padding: 28px 0 44px; color: #667085; font-size: 13px; }
     .foot { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 24px; }
     .foot-links { display: flex; gap: 16px; color: #344054; font-weight: 900; }
@@ -134,10 +164,11 @@
       .tags { font-size: 15px; gap: 10px; }
       .store-badge { min-width: 162px; height: 54px; }
       .store-badge span { font-size: 17px; }
+      .hero-stats { grid-template-columns: 1fr; }
       .phones { min-height: 480px; }
       .phone.primary { right: 0; left: auto; top: 0; width: 238px; height: 486px; }
       .phone.secondary { left: 0; right: auto; top: 214px; width: 196px; height: 398px; }
-      .features, .steps, .contact { grid-template-columns: 1fr; }
+      .features, .role-grid, .steps, .security-grid, .contact { grid-template-columns: 1fr; }
       .section-head { display: block; }
       .section-head p { margin-top: 10px; }
       .contact-info { text-align: left; white-space: normal; }
@@ -152,12 +183,12 @@
         <span>초해크롭</span>
       </a>
       <nav class="links" aria-label="주요 링크">
-        <a href="#features">초해크롭</a>
-        <a href="#workflow">방제관리</a>
+        <a href="#features">기능</a>
+        <a href="#roles">사용자</a>
+        <a href="#workflow">업무 흐름</a>
         <a href="#contact">고객센터</a>
-        <a href="./privacy.html">개인정보처리방침</a>
       </nav>
-      <a class="admin-link" href="#contact">도입 문의</a>
+      <a class="nav-cta" href="#contact">도입 문의</a>
     </div>
   </header>
 
@@ -181,6 +212,11 @@
             <span class="store-badge"><span class="store-icon">●</span><span><small>Download on the</small>App Store</span></span>
           </div>
           <p class="hero-note">Google Play 및 App Store 배포 준비 중입니다.</p>
+          <div class="hero-stats" aria-label="초해크롭 핵심 가치">
+            <div class="stat"><strong>지도 기반</strong><span>필지 위치와 경계 확인</span></div>
+            <div class="stat"><strong>팀 단위</strong><span>작업 배정과 진행률 관리</span></div>
+            <div class="stat"><strong>알림 연동</strong><span>방제 시작/완료 안내</span></div>
+          </div>
         </div>
 
         <div class="phones" aria-label="초해크롭 앱 화면 예시">
@@ -227,9 +263,25 @@
         </div>
         <div class="features">
           <article class="feature"><div class="feature-icon">1</div><h3>필지 지도 관리</h3><p>필지 위치와 경계를 지도에서 확인하고 농가별 작업 대상을 빠르게 찾습니다.</p></article>
-          <article class="feature"><div class="feature-icon">2</div><h3>팀별 작업 배정</h3><p>지역과 작업자 기준으로 필지를 나누고 팀별 진행률을 확인합니다.</p></article>
-          <article class="feature"><div class="feature-icon">3</div><h3>방제 알림</h3><p>방제 시작과 완료 시 농가에 알림톡 또는 문자로 진행 상황을 안내합니다.</p></article>
-          <article class="feature"><div class="feature-icon">4</div><h3>증빙 사진 관리</h3><p>완료 사진을 촬영하거나 선택해 필지별 증빙 자료로 보관합니다.</p></article>
+          <article class="feature"><div class="feature-icon">2</div><h3>지역별 목록</h3><p>읍면/리 단위로 필지를 묶어 작업자가 이동 동선을 쉽게 잡을 수 있습니다.</p></article>
+          <article class="feature"><div class="feature-icon">3</div><h3>팀별 작업 배정</h3><p>팀과 작업자 기준으로 필지를 나누고 진행률을 확인합니다.</p></article>
+          <article class="feature"><div class="feature-icon">4</div><h3>방제 알림</h3><p>방제 시작과 완료 시 농가에 알림톡 또는 문자로 진행 상황을 안내합니다.</p></article>
+          <article class="feature"><div class="feature-icon">5</div><h3>증빙 사진 관리</h3><p>완료 사진을 촬영하거나 선택해 필지별 증빙 자료로 보관합니다.</p></article>
+          <article class="feature"><div class="feature-icon">6</div><h3>현황 대시보드</h3><p>오늘 작업, 팀 진행률, 증빙 미첨부 등 확인할 항목만 간결하게 보여줍니다.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="roles" class="roles">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>역할별로 다른 화면</h2>
+          <p>현장 앱은 모든 사람이 같은 화면을 볼 필요가 없습니다. 초해크롭은 관리자, 팀장, 팀원에게 필요한 기능을 나눠 제공합니다.</p>
+        </div>
+        <div class="role-grid">
+          <article class="role-card"><span class="label">관리자</span><h3>전체 운영 관리</h3><ul><li>방제팀 생성과 초대코드 관리</li><li>필지 등록, 삭제, 대량 업로드</li><li>전체 작업 현황과 알림 확인</li></ul></article>
+          <article class="role-card"><span class="label">팀장</span><h3>팀 작업 배정</h3><ul><li>팀원별 작업 배정</li><li>팀원 진행률과 증빙 확인</li><li>팀원 색상과 작업 구분 관리</li></ul></article>
+          <article class="role-card"><span class="label">팀원</span><h3>현장 작업 처리</h3><ul><li>내 작업 목록 확인</li><li>방제 시작/완료 처리</li><li>완료 사진 촬영과 증빙 등록</li></ul></article>
         </div>
       </div>
     </section>
@@ -243,17 +295,37 @@
         <div class="steps">
           <article class="step"><h3>필지 등록</h3><p>엑셀 대량 업로드 또는 개별 등록으로 농가와 필지를 정리합니다.</p></article>
           <article class="step"><h3>작업 배정</h3><p>지역과 팀 기준으로 작업자를 배정하고 오늘 작업을 확인합니다.</p></article>
-          <article class="step"><h3>완료 확인</h3><p>상태 변경, 완료 사진, 알림 발송 이력을 기준으로 작업을 마감합니다.</p></article>
+          <article class="step"><h3>현장 방제</h3><p>지도와 목록에서 필지를 찾고 시작/완료 상태를 빠르게 기록합니다.</p></article>
+          <article class="step"><h3>증빙 확인</h3><p>완료 사진과 알림 발송 이력을 기준으로 작업을 마감합니다.</p></article>
         </div>
       </div>
     </section>
 
-    <section id="contact">
+    <section class="security">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>운영에 필요한 기본 신뢰</h2>
+          <p>앱 심사와 실제 운영에 필요한 개인정보 처리방침, 서비스약관, 문의 채널을 공식 도메인에서 제공합니다.</p>
+        </div>
+        <div class="security-grid">
+          <article class="security-card"><strong>공식 도메인</strong><span>chcrop.kr 기반 홈페이지와 약관 링크 제공</span></article>
+          <article class="security-card"><strong>팀별 권한</strong><span>관리자, 팀장, 팀원 역할에 따른 접근 분리</span></article>
+          <article class="security-card"><strong>증빙 관리</strong><span>방제 완료 사진과 작업 이력 보관</span></article>
+          <article class="security-card"><strong>알림 기록</strong><span>방제 시작/완료 안내와 발송 이력 관리</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
       <div class="wrap">
         <div class="contact">
           <div>
             <h2>도입 및 이용 문의</h2>
             <p>초해크롭은 주식회사 진설초해가 제공하는 드론방제 필지관리 앱입니다.</p>
+            <div class="legal-links">
+              <a href="./privacy.html">개인정보처리방침</a>
+              <a href="./service.html">서비스약관</a>
+            </div>
           </div>
           <div class="contact-info">
             <span>1811-8381</span>
