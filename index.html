@@ -76,9 +76,8 @@
     .store-link { display: inline-flex; align-items: center; gap: 10px; color: #fff; font-weight: 950; }
     .store-link small { display: block; font-size: 10px; line-height: 1; color: rgba(255,255,255,.76); font-weight: 850; }
     .store-link span { display: block; font-size: 20px; line-height: 1.05; }
-    .play-icon { width: 40px; height: 40px; display: block; filter: drop-shadow(0 10px 18px rgba(0,0,0,.18)); }
-    .appstore-icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(160deg, #20c7f5, #1978ff); box-shadow: 0 10px 18px rgba(0,0,0,.18); }
-    .appstore-icon svg { width: 27px; height: 27px; }
+    .store-icon-img { width: 42px; height: 42px; object-fit: contain; display: block; filter: drop-shadow(0 10px 18px rgba(0,0,0,.18)); }
+    .appstore-img { border-radius: 11px; }
     .hero-note { margin-top: 15px; font-size: 13px; color: rgba(255,255,255,.78); }
     .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 620px; margin-top: 34px; }
     .stat { border: 1px solid rgba(255,255,255,.24); background: rgba(255,255,255,.12); border-radius: 16px; padding: 15px 16px; }
@@ -229,18 +228,11 @@
           </div>
           <div class="store-row" aria-label="앱 배포 준비 영역">
             <span class="store-link">
-              <svg class="play-icon" viewBox="0 0 100 100" aria-hidden="true">
-                <path d="M15 8 L57 50 L15 92 Z" fill="#34A853"/>
-                <path d="M57 50 L74 33 L89 43 Q97 50 89 57 L74 67 Z" fill="#FBBC04"/>
-                <path d="M15 8 L74 33 L57 50 Z" fill="#4285F4"/>
-                <path d="M15 92 L57 50 L74 67 Z" fill="#EA4335"/>
-              </svg>
+              <img class="store-icon-img" src="./playstore.png" alt="Google Play" />
               <span><small>GET IT ON</small>Google Play</span>
             </span>
             <span class="store-link">
-              <span class="appstore-icon">
-                <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 47h24" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M28 44L40 18" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M36 44L24 18" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M18 35h28" stroke="#fff" stroke-width="7" stroke-linecap="round"/></svg>
-              </span>
+              <img class="store-icon-img appstore-img" src="./appstore.png" alt="App Store" />
               <span><small>Download on the</small>App Store</span>
             </span>
           </div>
@@ -390,3 +382,4 @@
   </footer>
 </body>
 </html>
+
