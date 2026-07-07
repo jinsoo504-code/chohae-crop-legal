@@ -8,15 +8,18 @@
   <style>
     :root {
       --blue: #0b55ff;
-      --blue-dark: #073fc4;
-      --green: #16a34a;
+      --blue-2: #0642d9;
+      --blue-3: #eaf1ff;
+      --green: #19a463;
       --ink: #111827;
       --muted: #667085;
       --line: #e5e7eb;
       --soft: #f6f8fb;
       --white: #ffffff;
+      --shadow: 0 24px 70px rgba(11, 31, 58, .18);
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
@@ -25,71 +28,89 @@
       line-height: 1.55;
     }
     a { color: inherit; text-decoration: none; }
-    .wrap { max-width: 1360px; margin: 0 auto; padding: 0 40px; }
-    header { height: 66px; background: #fff; border-bottom: 1px solid #edf0f4; }
-    .nav { height: 66px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 900; color: #0b2b66; font-size: 22px; letter-spacing: 0; }
-    .brand img { width: 34px; height: 34px; border-radius: 9px; display: block; }
-    .links { display: flex; align-items: center; gap: 54px; font-size: 15px; font-weight: 800; color: #222; white-space: nowrap; }
-    .admin-link { justify-self: end; display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 18px; border-radius: 9px; background: #0b8f55; color: #fff; font-size: 14px; font-weight: 900; }
-    .hero { min-height: 774px; background: var(--blue); color: #fff; overflow: hidden; }
-    .hero-inner { position: relative; min-height: 774px; display: grid; grid-template-columns: 0.95fr 1.05fr; align-items: center; gap: 40px; }
-    .hero-copy { position: relative; z-index: 2; padding: 60px 0 90px; }
-    .app-mark { display: inline-flex; align-items: center; gap: 16px; margin-bottom: 38px; }
-    .app-mark img { width: 56px; height: 56px; border-radius: 14px; background: #fff; box-shadow: 0 14px 28px rgba(0,0,0,.14); }
+    .wrap { max-width: 1360px; margin: 0 auto; padding: 0 42px; }
+    header {
+      height: 68px;
+      background: #fff;
+      border-bottom: 1px solid #eef1f5;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .nav {
+      height: 68px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 950; color: #0b2b66; font-size: 22px; letter-spacing: 0; }
+    .brand img { width: 36px; height: 36px; border-radius: 10px; display: block; box-shadow: 0 8px 18px rgba(11,85,255,.18); }
+    .links { display: flex; align-items: center; gap: 48px; font-size: 15px; font-weight: 850; color: #202938; white-space: nowrap; }
+    .admin-link { justify-self: end; display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 18px; border-radius: 10px; background: var(--green); color: #fff; font-size: 14px; font-weight: 950; box-shadow: 0 10px 24px rgba(25,164,99,.2); }
+
+    .hero { min-height: 770px; background: var(--blue); color: #fff; overflow: hidden; }
+    .hero-inner { position: relative; min-height: 770px; display: grid; grid-template-columns: 0.94fr 1.06fr; align-items: center; gap: 36px; }
+    .hero-copy { position: relative; z-index: 3; padding: 70px 0 96px; }
+    .app-mark { display: inline-flex; align-items: center; gap: 16px; margin-bottom: 34px; }
+    .app-mark img { width: 58px; height: 58px; border-radius: 15px; background: #fff; box-shadow: 0 16px 32px rgba(0,0,0,.18); }
     .app-mark strong { font-size: 40px; line-height: 1; letter-spacing: 0; }
-    h1 { margin: 0; font-size: clamp(48px, 6vw, 82px); line-height: 1.13; letter-spacing: 0; font-weight: 950; }
-    .tags { display: flex; gap: 18px; flex-wrap: wrap; margin: 34px 0 32px; font-size: 18px; font-weight: 900; }
+    h1 { margin: 0; font-size: clamp(48px, 5.8vw, 84px); line-height: 1.13; letter-spacing: 0; font-weight: 950; }
+    .hero-desc { margin: 26px 0 0; max-width: 640px; font-size: 20px; color: rgba(255,255,255,.9); font-weight: 650; word-break: keep-all; }
+    .tags { display: flex; gap: 16px; flex-wrap: wrap; margin: 28px 0 34px; font-size: 18px; font-weight: 950; color: #fff; }
     .store-row { display: flex; gap: 14px; flex-wrap: wrap; }
-    .store-badge { min-width: 194px; height: 62px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #fff; color: #111827; border-radius: 14px; font-weight: 900; box-shadow: 0 16px 32px rgba(0,0,0,.14); }
-    .store-badge small { display: block; font-size: 10px; line-height: 1; color: #475467; font-weight: 800; }
+    .store-badge { min-width: 194px; height: 62px; display: inline-flex; align-items: center; justify-content: center; gap: 11px; background: #fff; color: #111827; border-radius: 14px; font-weight: 950; box-shadow: 0 18px 34px rgba(0,0,0,.15); }
+    .store-badge small { display: block; font-size: 10px; line-height: 1; color: #475467; font-weight: 850; }
     .store-badge span { display: block; font-size: 20px; line-height: 1.05; }
-    .store-icon { font-size: 26px; line-height: 1; }
-    .phones { position: relative; min-height: 720px; z-index: 1; }
-    .phone { position: absolute; width: 278px; height: 568px; border: 8px solid #111; border-radius: 42px; background: #fff; box-shadow: 0 26px 70px rgba(0,0,0,.34); overflow: hidden; }
-    .phone:before { content: ""; position: absolute; left: 50%; top: 12px; transform: translateX(-50%); width: 92px; height: 26px; border-radius: 999px; background: #070707; z-index: 5; }
-    .phone.primary { right: 82px; top: 42px; transform: rotate(1deg); }
-    .phone.secondary { right: 362px; top: 472px; width: 230px; height: 470px; border-radius: 36px; transform: rotate(-1deg); }
-    .screen { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; }
-    .status { height: 50px; display: flex; align-items: end; justify-content: space-between; padding: 0 18px 8px; font-size: 11px; color: #111827; font-weight: 900; }
-    .map { height: 330px; position: relative; background: linear-gradient(135deg, #5c7f48, #9aa567 34%, #526f3f 64%, #315a70); overflow: hidden; }
-    .road { position: absolute; background: rgba(255,255,255,.78); border-radius: 999px; transform-origin: center; }
-    .road.r1 { left: -30px; top: 88px; width: 360px; height: 14px; transform: rotate(-22deg); }
-    .road.r2 { left: 44px; top: 182px; width: 320px; height: 12px; transform: rotate(35deg); }
-    .road.r3 { left: 142px; top: 8px; width: 12px; height: 360px; transform: rotate(10deg); }
+    .store-icon { font-size: 27px; line-height: 1; }
+    .hero-note { margin-top: 14px; font-size: 13px; color: rgba(255,255,255,.78); }
+
+    .phones { position: relative; min-height: 720px; z-index: 2; }
+    .phone { position: absolute; border: 8px solid #141414; background: #fff; box-shadow: 0 28px 76px rgba(0,0,0,.34); overflow: hidden; }
+    .phone:before { content: ""; position: absolute; left: 50%; top: 12px; transform: translateX(-50%); width: 92px; height: 26px; border-radius: 999px; background: #050505; z-index: 5; }
+    .phone.primary { right: 74px; top: 42px; width: 286px; height: 584px; border-radius: 44px; transform: rotate(1deg); }
+    .phone.secondary { right: 364px; top: 452px; width: 236px; height: 480px; border-radius: 38px; transform: rotate(-1deg); }
+    .screen { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; color: #111827; }
+    .status { height: 52px; display: flex; align-items: end; justify-content: space-between; padding: 0 18px 8px; font-size: 11px; color: #111827; font-weight: 950; }
+    .map { height: 338px; position: relative; background: linear-gradient(135deg, #526f3f, #9aa567 34%, #6c854e 57%, #315a70); overflow: hidden; }
+    .road { position: absolute; background: rgba(255,255,255,.8); border-radius: 999px; transform-origin: center; }
+    .road.r1 { left: -34px; top: 92px; width: 370px; height: 14px; transform: rotate(-22deg); }
+    .road.r2 { left: 42px; top: 184px; width: 330px; height: 12px; transform: rotate(35deg); }
+    .road.r3 { left: 146px; top: 8px; width: 12px; height: 365px; transform: rotate(10deg); }
     .poly { position: absolute; border: 2px solid #ffcc33; background: rgba(255,204,51,.23); border-radius: 20px 13px 24px 14px; }
-    .poly.p1 { left: 32px; top: 164px; width: 82px; height: 58px; transform: rotate(18deg); }
-    .poly.p2 { right: 30px; top: 112px; width: 86px; height: 66px; transform: rotate(-11deg); }
-    .poly.p3 { left: 126px; top: 230px; width: 110px; height: 72px; transform: rotate(7deg); }
-    .map-label { position: absolute; left: 18px; top: 18px; padding: 7px 10px; border-radius: 999px; background: rgba(255,255,255,.92); color: #0b55ff; font-size: 12px; font-weight: 900; }
+    .poly.p1 { left: 32px; top: 164px; width: 86px; height: 58px; transform: rotate(18deg); }
+    .poly.p2 { right: 30px; top: 112px; width: 88px; height: 66px; transform: rotate(-11deg); }
+    .poly.p3 { left: 126px; top: 230px; width: 112px; height: 72px; transform: rotate(7deg); }
+    .map-label { position: absolute; left: 18px; top: 18px; padding: 7px 10px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--blue); font-size: 12px; font-weight: 950; }
     .panel { padding: 14px; }
-    .mini-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 900; color: #111827; }
+    .mini-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 950; color: #111827; }
     .progress-list { display: grid; gap: 8px; }
-    .row { display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; gap: 8px; font-size: 12px; color: #344054; font-weight: 800; }
+    .row { display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; gap: 8px; font-size: 12px; color: #344054; font-weight: 850; }
     .bar { height: 9px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
     .fill { height: 100%; border-radius: inherit; background: var(--blue); }
     .fill.orange { background: #f97316; }
-    .fill.green { background: #16a34a; }
+    .fill.green { background: var(--green); }
     .field-card { margin-top: 12px; border: 1px solid #e5e7eb; border-radius: 13px; padding: 11px; background: #fff; box-shadow: 0 8px 20px rgba(16,24,40,.08); }
     .field-card strong { display: block; font-size: 14px; color: #111827; margin-bottom: 4px; }
     .field-card span { display: block; font-size: 11px; color: #667085; }
-    .green-button { margin-top: 10px; height: 34px; border-radius: 8px; background: #0b8f55; color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 12px; }
+    .green-button { margin-top: 10px; height: 34px; border-radius: 8px; background: var(--green); color: #fff; display: grid; place-items: center; font-weight: 950; font-size: 12px; }
     .list-screen { padding: 54px 12px 12px; }
     .search { height: 34px; border: 1px solid #e5e7eb; border-radius: 8px; display: flex; align-items: center; color: #98a2b3; padding: 0 10px; font-size: 11px; margin-bottom: 10px; }
-    .folder { border: 1px solid #e5e7eb; background: #fff; border-radius: 10px; padding: 10px; margin-bottom: 8px; font-size: 12px; color: #344054; font-weight: 900; }
-    .folder small { display: block; color: #667085; font-weight: 700; margin-top: 3px; }
-    section { padding: 74px 0; }
-    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
-    h2 { margin: 0; color: #0b1f3a; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
-    .section-head p { margin: 0; max-width: 560px; color: var(--muted); font-size: 16px; word-break: keep-all; }
+    .folder { border: 1px solid #e5e7eb; background: #fff; border-radius: 10px; padding: 10px; margin-bottom: 8px; font-size: 12px; color: #344054; font-weight: 950; }
+    .folder small { display: block; color: #667085; font-weight: 750; margin-top: 3px; }
+
+    section { padding: 76px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
+    h2 { margin: 0; color: #0b1f3a; font-size: 36px; line-height: 1.2; letter-spacing: 0; }
+    .section-head p { margin: 0; max-width: 580px; color: var(--muted); font-size: 16px; word-break: keep-all; }
     .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .feature { border: 1px solid var(--line); background: #fff; border-radius: 18px; padding: 24px; min-height: 172px; box-shadow: 0 16px 36px rgba(16,24,40,.06); }
-    .feature-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; color: var(--blue); background: #eef4ff; font-weight: 950; margin-bottom: 18px; }
+    .feature { border: 1px solid var(--line); background: #fff; border-radius: 18px; padding: 24px; min-height: 176px; box-shadow: 0 16px 36px rgba(16,24,40,.06); }
+    .feature-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; color: var(--blue); background: var(--blue-3); font-weight: 950; margin-bottom: 18px; }
     .feature h3 { margin: 0 0 8px; font-size: 18px; }
     .feature p { margin: 0; color: var(--muted); font-size: 14px; word-break: keep-all; }
     .workflow { background: #f8fafc; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: step; }
-    .step { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+    .step { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 24px; box-shadow: 0 10px 28px rgba(16,24,40,.04); }
     .step:before { counter-increment: step; content: counter(step); width: 34px; height: 34px; display: grid; place-items: center; border-radius: 999px; background: var(--blue); color: #fff; font-weight: 950; margin-bottom: 16px; }
     .step h3 { margin: 0 0 8px; font-size: 18px; }
     .step p { margin: 0; color: var(--muted); font-size: 14px; word-break: keep-all; }
@@ -109,7 +130,11 @@
       .hero-copy { padding: 44px 0 24px; }
       .app-mark { margin-bottom: 24px; }
       .app-mark strong { font-size: 28px; }
-      .phones { min-height: 470px; }
+      .hero-desc { font-size: 16px; }
+      .tags { font-size: 15px; gap: 10px; }
+      .store-badge { min-width: 162px; height: 54px; }
+      .store-badge span { font-size: 17px; }
+      .phones { min-height: 480px; }
       .phone.primary { right: 0; left: auto; top: 0; width: 238px; height: 486px; }
       .phone.secondary { left: 0; right: auto; top: 214px; width: 196px; height: 398px; }
       .features, .steps, .contact { grid-template-columns: 1fr; }
@@ -127,8 +152,8 @@
         <span>초해크롭</span>
       </a>
       <nav class="links" aria-label="주요 링크">
-        <a href="#features">기능</a>
-        <a href="#workflow">업무 흐름</a>
+        <a href="#features">초해크롭</a>
+        <a href="#workflow">방제관리</a>
         <a href="#contact">고객센터</a>
         <a href="./privacy.html">개인정보처리방침</a>
       </nav>
@@ -144,7 +169,8 @@
             <img src="./logo.png" alt="초해크롭 로고" />
             <strong>초해크롭</strong>
           </div>
-          <h1>한번의 터치로<br />정리되는 드론방제</h1>
+          <h1>한번의 터치로<br />정리되는<br />드론방제 관리</h1>
+          <p class="hero-desc">필지 지도, 팀 배정, 방제 시작과 완료 알림, 증빙 사진까지 현장에서 필요한 업무만 빠르게 처리합니다.</p>
           <div class="tags">
             <span>#필지 관리</span>
             <span>#팀 작업 배정</span>
@@ -154,6 +180,7 @@
             <span class="store-badge"><span class="store-icon">▶</span><span><small>GET IT ON</small>Google Play</span></span>
             <span class="store-badge"><span class="store-icon">●</span><span><small>Download on the</small>App Store</span></span>
           </div>
+          <p class="hero-note">Google Play 및 App Store 배포 준비 중입니다.</p>
         </div>
 
         <div class="phones" aria-label="초해크롭 앱 화면 예시">
@@ -161,7 +188,7 @@
             <div class="screen">
               <div class="status"><span>4:45</span><span>5G 98%</span></div>
               <div class="panel">
-                <div class="mini-head"><span>23필지</span><span>오늘</span></div>
+                <div class="mini-head"><span>오늘 방제 진행률</span><span>23필지</span></div>
                 <div class="progress-list">
                   <div class="row"><span>진행</span><div class="bar"><div class="fill" style="width:74%"></div></div><span>74%</span></div>
                   <div class="row"><span>완료</span><div class="bar"><div class="fill green" style="width:46%"></div></div><span>46%</span></div>
@@ -195,8 +222,8 @@
     <section id="features">
       <div class="wrap">
         <div class="section-head">
-          <h2>현장 중심 기능</h2>
-          <p>작업자가 빠르게 확인하고, 팀장이 쉽게 배정하며, 관리자가 전체 현황을 놓치지 않도록 구성했습니다.</p>
+          <h2>드론방제 현장을 위한 기능</h2>
+          <p>관리자는 전체 현황을 보고, 팀장은 작업자를 배정하고, 팀원은 오늘 해야 할 필지만 빠르게 처리합니다.</p>
         </div>
         <div class="features">
           <article class="feature"><div class="feature-icon">1</div><h3>필지 지도 관리</h3><p>필지 위치와 경계를 지도에서 확인하고 농가별 작업 대상을 빠르게 찾습니다.</p></article>
