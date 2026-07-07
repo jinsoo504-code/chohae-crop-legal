@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="초해크롭은 드론방제 필지관리, 팀 작업 배정, 방제 알림, 증빙 사진 관리를 위한 현장 업무 앱입니다." />
+  <title>초해크롭 | CHOHAE CROP</title>
+  <style>
+    :root {
+      --blue: #0b55ff;
+      --blue-dark: #073fc4;
+      --green: #16a34a;
+      --ink: #111827;
+      --muted: #667085;
+      --line: #e5e7eb;
+      --soft: #f6f8fb;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+      color: var(--ink);
+      background: #fff;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1360px; margin: 0 auto; padding: 0 40px; }
+    header { height: 66px; background: #fff; border-bottom: 1px solid #edf0f4; }
+    .nav { height: 66px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 900; color: #0b2b66; font-size: 22px; letter-spacing: 0; }
+    .brand img { width: 34px; height: 34px; border-radius: 9px; display: block; }
+    .links { display: flex; align-items: center; gap: 54px; font-size: 15px; font-weight: 800; color: #222; white-space: nowrap; }
+    .admin-link { justify-self: end; display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 0 18px; border-radius: 9px; background: #0b8f55; color: #fff; font-size: 14px; font-weight: 900; }
+    .hero { min-height: 774px; background: var(--blue); color: #fff; overflow: hidden; }
+    .hero-inner { position: relative; min-height: 774px; display: grid; grid-template-columns: 0.95fr 1.05fr; align-items: center; gap: 40px; }
+    .hero-copy { position: relative; z-index: 2; padding: 60px 0 90px; }
+    .app-mark { display: inline-flex; align-items: center; gap: 16px; margin-bottom: 38px; }
+    .app-mark img { width: 56px; height: 56px; border-radius: 14px; background: #fff; box-shadow: 0 14px 28px rgba(0,0,0,.14); }
+    .app-mark strong { font-size: 40px; line-height: 1; letter-spacing: 0; }
+    h1 { margin: 0; font-size: clamp(48px, 6vw, 82px); line-height: 1.13; letter-spacing: 0; font-weight: 950; }
+    .tags { display: flex; gap: 18px; flex-wrap: wrap; margin: 34px 0 32px; font-size: 18px; font-weight: 900; }
+    .store-row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .store-badge { min-width: 194px; height: 62px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #fff; color: #111827; border-radius: 14px; font-weight: 900; box-shadow: 0 16px 32px rgba(0,0,0,.14); }
+    .store-badge small { display: block; font-size: 10px; line-height: 1; color: #475467; font-weight: 800; }
+    .store-badge span { display: block; font-size: 20px; line-height: 1.05; }
+    .store-icon { font-size: 26px; line-height: 1; }
+    .phones { position: relative; min-height: 720px; z-index: 1; }
+    .phone { position: absolute; width: 278px; height: 568px; border: 8px solid #111; border-radius: 42px; background: #fff; box-shadow: 0 26px 70px rgba(0,0,0,.34); overflow: hidden; }
+    .phone:before { content: ""; position: absolute; left: 50%; top: 12px; transform: translateX(-50%); width: 92px; height: 26px; border-radius: 999px; background: #070707; z-index: 5; }
+    .phone.primary { right: 82px; top: 42px; transform: rotate(1deg); }
+    .phone.secondary { right: 362px; top: 472px; width: 230px; height: 470px; border-radius: 36px; transform: rotate(-1deg); }
+    .screen { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; }
+    .status { height: 50px; display: flex; align-items: end; justify-content: space-between; padding: 0 18px 8px; font-size: 11px; color: #111827; font-weight: 900; }
+    .map { height: 330px; position: relative; background: linear-gradient(135deg, #5c7f48, #9aa567 34%, #526f3f 64%, #315a70); overflow: hidden; }
+    .road { position: absolute; background: rgba(255,255,255,.78); border-radius: 999px; transform-origin: center; }
+    .road.r1 { left: -30px; top: 88px; width: 360px; height: 14px; transform: rotate(-22deg); }
+    .road.r2 { left: 44px; top: 182px; width: 320px; height: 12px; transform: rotate(35deg); }
+    .road.r3 { left: 142px; top: 8px; width: 12px; height: 360px; transform: rotate(10deg); }
+    .poly { position: absolute; border: 2px solid #ffcc33; background: rgba(255,204,51,.23); border-radius: 20px 13px 24px 14px; }
+    .poly.p1 { left: 32px; top: 164px; width: 82px; height: 58px; transform: rotate(18deg); }
+    .poly.p2 { right: 30px; top: 112px; width: 86px; height: 66px; transform: rotate(-11deg); }
+    .poly.p3 { left: 126px; top: 230px; width: 110px; height: 72px; transform: rotate(7deg); }
+    .map-label { position: absolute; left: 18px; top: 18px; padding: 7px 10px; border-radius: 999px; background: rgba(255,255,255,.92); color: #0b55ff; font-size: 12px; font-weight: 900; }
+    .panel { padding: 14px; }
+    .mini-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: 900; color: #111827; }
+    .progress-list { display: grid; gap: 8px; }
+    .row { display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; gap: 8px; font-size: 12px; color: #344054; font-weight: 800; }
+    .bar { height: 9px; border-radius: 999px; background: #e5e7eb; overflow: hidden; }
+    .fill { height: 100%; border-radius: inherit; background: var(--blue); }
+    .fill.orange { background: #f97316; }
+    .fill.green { background: #16a34a; }
+    .field-card { margin-top: 12px; border: 1px solid #e5e7eb; border-radius: 13px; padding: 11px; background: #fff; box-shadow: 0 8px 20px rgba(16,24,40,.08); }
+    .field-card strong { display: block; font-size: 14px; color: #111827; margin-bottom: 4px; }
+    .field-card span { display: block; font-size: 11px; color: #667085; }
+    .green-button { margin-top: 10px; height: 34px; border-radius: 8px; background: #0b8f55; color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 12px; }
+    .list-screen { padding: 54px 12px 12px; }
+    .search { height: 34px; border: 1px solid #e5e7eb; border-radius: 8px; display: flex; align-items: center; color: #98a2b3; padding: 0 10px; font-size: 11px; margin-bottom: 10px; }
+    .folder { border: 1px solid #e5e7eb; background: #fff; border-radius: 10px; padding: 10px; margin-bottom: 8px; font-size: 12px; color: #344054; font-weight: 900; }
+    .folder small { display: block; color: #667085; font-weight: 700; margin-top: 3px; }
+    section { padding: 74px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+    h2 { margin: 0; color: #0b1f3a; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+    .section-head p { margin: 0; max-width: 560px; color: var(--muted); font-size: 16px; word-break: keep-all; }
+    .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .feature { border: 1px solid var(--line); background: #fff; border-radius: 18px; padding: 24px; min-height: 172px; box-shadow: 0 16px 36px rgba(16,24,40,.06); }
+    .feature-icon { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; color: var(--blue); background: #eef4ff; font-weight: 950; margin-bottom: 18px; }
+    .feature h3 { margin: 0 0 8px; font-size: 18px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 14px; word-break: keep-all; }
+    .workflow { background: #f8fafc; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; counter-reset: step; }
+    .step { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+    .step:before { counter-increment: step; content: counter(step); width: 34px; height: 34px; display: grid; place-items: center; border-radius: 999px; background: var(--blue); color: #fff; font-weight: 950; margin-bottom: 16px; }
+    .step h3 { margin: 0 0 8px; font-size: 18px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; word-break: keep-all; }
+    .contact { background: #071f53; color: #fff; border-radius: 24px; padding: 34px; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; }
+    .contact h2 { color: #fff; font-size: 30px; margin-bottom: 8px; }
+    .contact p { margin: 0; color: #c7d7fe; }
+    .contact-info { display: grid; gap: 8px; text-align: right; font-weight: 950; font-size: 17px; white-space: nowrap; }
+    footer { padding: 28px 0 44px; color: #667085; font-size: 13px; }
+    .foot { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 24px; }
+    .foot-links { display: flex; gap: 16px; color: #344054; font-weight: 900; }
+    @media (max-width: 980px) {
+      .wrap { padding: 0 20px; }
+      .nav { grid-template-columns: 1fr auto; }
+      .links { display: none; }
+      .hero, .hero-inner { min-height: auto; }
+      .hero-inner { display: block; padding-bottom: 34px; }
+      .hero-copy { padding: 44px 0 24px; }
+      .app-mark { margin-bottom: 24px; }
+      .app-mark strong { font-size: 28px; }
+      .phones { min-height: 470px; }
+      .phone.primary { right: 0; left: auto; top: 0; width: 238px; height: 486px; }
+      .phone.secondary { left: 0; right: auto; top: 214px; width: 196px; height: 398px; }
+      .features, .steps, .contact { grid-template-columns: 1fr; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 10px; }
+      .contact-info { text-align: left; white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="./" aria-label="초해크롭 홈">
+        <img src="./logo.png" alt="초해크롭 로고" />
+        <span>초해크롭</span>
+      </a>
+      <nav class="links" aria-label="주요 링크">
+        <a href="#features">기능</a>
+        <a href="#workflow">업무 흐름</a>
+        <a href="#contact">고객센터</a>
+        <a href="./privacy.html">개인정보처리방침</a>
+      </nav>
+      <a class="admin-link" href="#contact">도입 문의</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <div class="app-mark">
+            <img src="./logo.png" alt="초해크롭 로고" />
+            <strong>초해크롭</strong>
+          </div>
+          <h1>한번의 터치로<br />정리되는 드론방제</h1>
+          <div class="tags">
+            <span>#필지 관리</span>
+            <span>#팀 작업 배정</span>
+            <span>#방제 알림</span>
+          </div>
+          <div class="store-row" aria-label="앱 배포 준비 영역">
+            <span class="store-badge"><span class="store-icon">▶</span><span><small>GET IT ON</small>Google Play</span></span>
+            <span class="store-badge"><span class="store-icon">●</span><span><small>Download on the</small>App Store</span></span>
+          </div>
+        </div>
+
+        <div class="phones" aria-label="초해크롭 앱 화면 예시">
+          <div class="phone primary">
+            <div class="screen">
+              <div class="status"><span>4:45</span><span>5G 98%</span></div>
+              <div class="panel">
+                <div class="mini-head"><span>23필지</span><span>오늘</span></div>
+                <div class="progress-list">
+                  <div class="row"><span>진행</span><div class="bar"><div class="fill" style="width:74%"></div></div><span>74%</span></div>
+                  <div class="row"><span>완료</span><div class="bar"><div class="fill green" style="width:46%"></div></div><span>46%</span></div>
+                  <div class="row"><span>예정</span><div class="bar"><div class="fill orange" style="width:28%"></div></div><span>28%</span></div>
+                </div>
+              </div>
+              <div class="map">
+                <div class="road r1"></div><div class="road r2"></div><div class="road r3"></div>
+                <div class="poly p1"></div><div class="poly p2"></div><div class="poly p3"></div>
+                <div class="map-label">지도 작업</div>
+              </div>
+              <div class="panel">
+                <div class="field-card"><strong>최윤미 82-5</strong><span>전라남도 장흥군 관산읍 · 청년팀 배정</span><div class="green-button">방제 완료</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="phone secondary">
+            <div class="screen list-screen">
+              <div class="mini-head"><span>필지 목록</span><span>작업</span></div>
+              <div class="search">주소, 이름, 전화번호 검색</div>
+              <div class="folder">관산읍 용전리<small>64필지 · 예정 21</small></div>
+              <div class="folder">유치면 관동리<small>104필지 · 진행 12</small></div>
+              <div class="folder">장흥읍 행원리<small>38필지 · 완료 19</small></div>
+              <div class="folder">대덕읍 연지리<small>52필지 · 증빙 확인</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>현장 중심 기능</h2>
+          <p>작업자가 빠르게 확인하고, 팀장이 쉽게 배정하며, 관리자가 전체 현황을 놓치지 않도록 구성했습니다.</p>
+        </div>
+        <div class="features">
+          <article class="feature"><div class="feature-icon">1</div><h3>필지 지도 관리</h3><p>필지 위치와 경계를 지도에서 확인하고 농가별 작업 대상을 빠르게 찾습니다.</p></article>
+          <article class="feature"><div class="feature-icon">2</div><h3>팀별 작업 배정</h3><p>지역과 작업자 기준으로 필지를 나누고 팀별 진행률을 확인합니다.</p></article>
+          <article class="feature"><div class="feature-icon">3</div><h3>방제 알림</h3><p>방제 시작과 완료 시 농가에 알림톡 또는 문자로 진행 상황을 안내합니다.</p></article>
+          <article class="feature"><div class="feature-icon">4</div><h3>증빙 사진 관리</h3><p>완료 사진을 촬영하거나 선택해 필지별 증빙 자료로 보관합니다.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow" class="workflow">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>방제 업무 흐름</h2>
+          <p>필지 등록부터 작업 배정, 방제 완료, 증빙 확인까지 현장 흐름에 맞춰 동작합니다.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><h3>필지 등록</h3><p>엑셀 대량 업로드 또는 개별 등록으로 농가와 필지를 정리합니다.</p></article>
+          <article class="step"><h3>작업 배정</h3><p>지역과 팀 기준으로 작업자를 배정하고 오늘 작업을 확인합니다.</p></article>
+          <article class="step"><h3>완료 확인</h3><p>상태 변경, 완료 사진, 알림 발송 이력을 기준으로 작업을 마감합니다.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact">
+          <div>
+            <h2>도입 및 이용 문의</h2>
+            <p>초해크롭은 주식회사 진설초해가 제공하는 드론방제 필지관리 앱입니다.</p>
+          </div>
+          <div class="contact-info">
+            <span>1811-8381</span>
+            <span>jinsoo504@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div>
+        <strong>주식회사 진설초해</strong><br />사업자등록번호 388-86-01863 · 전라남도 장흥군 장흥읍 행원1길 57
+      </div>
+      <div class="foot-links">
+        <a href="./privacy.html">개인정보처리방침</a>
+        <a href="./service.html">서비스약관</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
