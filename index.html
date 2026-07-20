@@ -143,6 +143,16 @@
     .feature-icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 13px; color: var(--blue); background: var(--blue-3); font-weight: 950; margin-bottom: 18px; }
     .feature h3 { margin: 0 0 8px; font-size: 18px; }
     .feature p { margin: 0; color: var(--muted); font-size: 14px; }
+    .latest { background: linear-gradient(180deg, #f7faff 0%, #eef4ff 100%); border-top: 1px solid #dce7ff; border-bottom: 1px solid #dce7ff; }
+    .latest-kicker { display: inline-flex; align-items: center; min-height: 30px; padding: 0 11px; margin-bottom: 12px; border-radius: 999px; background: #dce8ff; color: var(--blue-2); font-size: 13px; font-weight: 950; }
+    .latest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .latest-card { position: relative; overflow: hidden; min-height: 224px; padding: 28px; border: 1px solid #d9e4f7; border-radius: 22px; background: #fff; box-shadow: 0 16px 38px rgba(15, 53, 115, .07); }
+    .latest-card:after { content: ""; position: absolute; right: -42px; bottom: -52px; width: 150px; height: 150px; border-radius: 999px; background: #edf3ff; }
+    .latest-number { position: relative; z-index: 1; display: inline-grid; place-items: center; width: 38px; height: 38px; margin-bottom: 18px; border-radius: 12px; background: var(--blue); color: #fff; font-size: 15px; font-weight: 950; }
+    .latest-card h3 { position: relative; z-index: 1; margin: 0 0 9px; color: var(--navy); font-size: 21px; }
+    .latest-card p { position: relative; z-index: 1; margin: 0; max-width: 480px; color: var(--muted); font-size: 15px; }
+    .latest-points { position: relative; z-index: 1; display: flex; gap: 7px; flex-wrap: wrap; margin-top: 18px; }
+    .latest-points span { display: inline-flex; min-height: 28px; align-items: center; padding: 0 9px; border-radius: 999px; background: #f1f5fb; color: #344054; font-size: 12px; font-weight: 850; }
     .roles { background: var(--soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .role-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .role-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 28px; box-shadow: 0 10px 28px rgba(16,24,40,.04); }
@@ -189,7 +199,7 @@
       .phones { min-height: 520px; }
       .phone.primary { right: 0; left: auto; top: 0; width: 242px; height: 494px; }
       .phone.secondary { left: 0; right: auto; top: 228px; width: 198px; height: 400px; }
-      .features, .role-grid, .steps, .security-grid, .contact { grid-template-columns: 1fr; }
+      .features, .latest-grid, .role-grid, .steps, .security-grid, .contact { grid-template-columns: 1fr; }
       .section-head { display: block; }
       .section-head p { margin-top: 10px; }
       .contact-info { text-align: left; white-space: normal; }
@@ -205,6 +215,7 @@
       </a>
       <nav class="links" aria-label="주요 링크">
         <a href="#features">기능</a>
+        <a href="#latest">새 기능</a>
         <a href="#roles">사용자</a>
         <a href="#workflow">업무 흐름</a>
         <a href="#contact">고객센터</a>
@@ -222,11 +233,13 @@
             <strong>초해크롭</strong>
           </div>
           <h1>초해크롭 CHcrop :<br />간편한 드론방제</h1>
-          <p class="hero-desc">필지 지도, 팀 배정, 방제 시작과 완료 알림, 증빙 사진까지 현장에서 필요한 업무만 빠르게 처리합니다.</p>
+          <p class="hero-desc">필지 지도, 팀 배정, 14일 방제 날씨, 현재 위치 기반 길안내, 완료 증빙까지 현장에서 필요한 업무를 한 곳에서 처리합니다.</p>
           <div class="tags">
             <span>#필지 관리</span>
             <span>#팀 작업 배정</span>
             <span>#방제 알림</span>
+            <span>#14일 방제 날씨</span>
+            <span>#필지 길안내</span>
           </div>
           <div class="store-row" aria-label="앱 배포 준비 영역">
             <span class="store-link">
@@ -291,6 +304,42 @@
           <article class="feature"><div class="feature-icon">4</div><h3>방제 알림</h3><p>방제 시작과 완료 시 농가에 알림톡 또는 문자로 진행 상황을 안내합니다.</p></article>
           <article class="feature"><div class="feature-icon">5</div><h3>증빙 사진 관리</h3><p>완료 사진을 촬영하거나 선택해 필지별 증빙 자료로 보관합니다.</p></article>
           <article class="feature"><div class="feature-icon">6</div><h3>현황 대시보드</h3><p>오늘 작업, 팀 진행률, 증빙 미첨부 등 확인할 항목만 간결하게 보여줍니다.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="latest" class="latest">
+      <div class="wrap">
+        <span class="latest-kicker">새롭게 구현된 현장 기능</span>
+        <div class="section-head">
+          <h2>날씨 판단부터 필지 도착까지</h2>
+          <p>작업일을 정하고 현장으로 이동하는 과정에서 필요한 정보를 필지와 작업 일정에 맞춰 제공합니다.</p>
+        </div>
+        <div class="latest-grid">
+          <article class="latest-card">
+            <span class="latest-number">01</span>
+            <h3>14일 방제 일정</h3>
+            <p>배정된 필지의 위치와 등록 약제를 기준으로 예보를 분석해 날짜별 방제 적합도와 추천 시작 시간을 보여줍니다. 여러 지역이 배정된 날은 가장 보수적인 조건을 안내합니다.</p>
+            <div class="latest-points"><span>14일 예보</span><span>날짜별 배정 필지</span><span>추천 시작 시간</span></div>
+          </article>
+          <article class="latest-card">
+            <span class="latest-number">02</span>
+            <h3>지도에서 보는 방제 날씨</h3>
+            <p>방제 날씨 표시를 켜면 각 필지를 최적·가능·주의·부적합 색상으로 구분합니다. 필지를 선택하면 현재 판단과 그 이유를 바로 확인할 수 있습니다.</p>
+            <div class="latest-points"><span>필지별 색상</span><span>판정 이유</span><span>필요할 때만 조회</span></div>
+          </article>
+          <article class="latest-card">
+            <span class="latest-number">03</span>
+            <h3>현재 위치와 필지 길안내</h3>
+            <p>지도에서 현재 위치를 확인하고 현장 위치를 필지 중심좌표로 등록할 수 있습니다. 선택한 필지까지 도로 경로, 남은 거리와 예상시간을 확인하며 이동합니다.</p>
+            <div class="latest-points"><span>현재 위치 표시</span><span>필지 좌표 등록</span><span>도로 경로 안내</span></div>
+          </article>
+          <article class="latest-card">
+            <span class="latest-number">04</span>
+            <h3>필요한 순간에만 위치 사용</h3>
+            <p>지도나 길안내를 직접 실행했을 때만 위치를 이용합니다. 카카오모빌리티 경로 조회는 별도 선택 동의를 받고, 동의하지 않아도 위치 기능 외 서비스는 계속 이용할 수 있습니다.</p>
+            <div class="latest-points"><span>포그라운드만 사용</span><span>별도 제공 동의</span><span>동의 철회 지원</span></div>
+          </article>
         </div>
       </div>
     </section>
